@@ -3,8 +3,8 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Photo Drop - Upload",
-  description: "Upload your photos here",
+  title: "Photo Drop - Dashboard",
+  description: "The place for all your photos",
 };
 
 export default function RootLayout({ children }) {

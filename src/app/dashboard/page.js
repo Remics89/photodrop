@@ -4,10 +4,6 @@ import { CldImage } from "next-cloudinary";
 export default function Page() {
   return (
     <div>
-      <h1 className="flex top-0 place-content-center rounded border-4 border-red-600 ">
-        Welcome to your PhotoDrop
-        Dashboard!
-      </h1>
 
       <div className="md:flex flex-wrap flex-row justify-evenly">
         <CldImage

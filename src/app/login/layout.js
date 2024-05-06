@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Photo Drop - Dashboard",
+  title: "Photo Drop - Login",
   description: "The place for all your photos",
 };
 

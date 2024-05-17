@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model photos {
+  id          Int      @id @default(autoincrement())
+  title       String?  @db.VarChar(255)
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+  owner       Int
+  description String?
+  path        String   @unique @db.VarChar(255)
+  likes       Int?
+  user        user     @relation(fields: [owner], references: [id], onDelete: Cascade)
+}
+
+model user {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique @db.VarChar(255)
+  firstName String   @db.VarChar(255)
+  lastName  String   @db.VarChar(255)
+  userName  String   @unique @db.VarChar(20)
+  photos    photos[]
+  role      role[]
+}
+
+model role {
+  id      Int  @id @default(autoincrement())
+  adminId Int
+  user    user @relation(fields: [adminId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}

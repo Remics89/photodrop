@@ -83,8 +83,8 @@ export default function Footer() {
 
   return (
     mounted && (
-      <footer className="bg-white">
-        <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+      <footer className="bg-white inset-x-0 bottom-0 ">
+        <div className="mx-auto max-w-7xl overflow-auto px-6 py-8 sm:py-24 lg:px-8">
           <nav
             className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
             aria-label="Footer"

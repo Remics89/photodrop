@@ -3,12 +3,12 @@ import { Fragment, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-const noAuthNavigation = [
+const navigation = [
   { name: "Product", href: "#" },
   { name: "Features", href: "#" },
 ];
 
-const navigation = [
+const userNavigation = [
   {
     name: "Dashboard",
     href: "/dashboard",
@@ -33,7 +33,7 @@ export default function Header() {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <a href="/dashboard" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img
               className="h-8 w-auto"
@@ -77,7 +77,7 @@ export default function Header() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/25">
               <div className="space-y-2 py-6">
-                {noAuthNavigation.map((item) => (
+                {!auth ? navigation.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}
@@ -85,7 +85,15 @@ export default function Header() {
                       >
                         {item.name}
                       </a>
-                    ))}
+                    )) : userNavigation.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
+                      >
+                        {item.name}
+                      </a>
+                      ))}
               </div>
                   <div className="py-6">
                     <a

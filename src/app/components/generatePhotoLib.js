@@ -4,8 +4,9 @@ import { Fragment, useState } from "react";
 import PhotoPagination from "./pagination";
 
 export const PhotoLibrary = (props) => {
-  const { data } = props;
+  const { data, imgCount } = props;
   const [displayCount, setDisplayCount] = useState(15);
+  const [displayBlock, setDisplayBlock] = useState(displayCount)
 
   const count = [15, 30, 45];
 
@@ -16,9 +17,9 @@ export const PhotoLibrary = (props) => {
 
   return (
     <Fragment>
-      <div className="relative top-0 right-0 h-32 w-100vw">
+      <div className="relative top-0 right-0 h-40 w-100vw">
         My Photos
-        <PhotoPagination displayCount={displayCount}/>
+        <PhotoPagination displayCount={displayCount} displayBlock={displayBlock} imgCount={imgCount} />
         <div className="flex right-0 flex-col w-15 mr-5">
           <label
             htmlFor="location"
@@ -61,6 +62,7 @@ export const PhotoLibrary = (props) => {
             );
         })}
       </div>
+      <PhotoPagination displayCount={displayCount} displayBlock={displayBlock} imgCount={imgCount} />
     </Fragment>
   );
 };

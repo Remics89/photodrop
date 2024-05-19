@@ -6,7 +6,7 @@ import PhotoPagination from "./pagination";
 export const PhotoLibrary = (props) => {
   const { data, imgCount } = props;
   const [displayCount, setDisplayCount] = useState(15);
-  const [displayBlock, setDisplayBlock] = useState(displayCount)
+  const [selectedPage, setSelectedPage] = useState(Number);
 
   const count = [15, 30, 45];
 
@@ -19,7 +19,12 @@ export const PhotoLibrary = (props) => {
     <Fragment>
       <div className="relative top-0 right-0 h-40 w-100vw">
         My Photos
-        <PhotoPagination displayCount={displayCount} displayBlock={displayBlock} imgCount={imgCount} />
+        <PhotoPagination
+          displayCount={displayCount}
+          imgCount={imgCount}
+          selectedPage={selectedPage}
+          setSelectedPage={setSelectedPage}
+        />
         <div className="flex right-0 flex-col w-15 mr-5">
           <label
             htmlFor="location"
@@ -50,7 +55,7 @@ export const PhotoLibrary = (props) => {
             return (
               <div key={index}>
                 <CldImage
-                  className="p-5"
+                  className="m-2 shadow-sm shadow-black hover:shadow-lg hover:shadow-black rounded-lg mobile:my-4 mobile:mx-0 mobile:w-100%"
                   width={600}
                   height={450}
                   src={photoData.path}
@@ -62,7 +67,12 @@ export const PhotoLibrary = (props) => {
             );
         })}
       </div>
-      <PhotoPagination displayCount={displayCount} displayBlock={displayBlock} imgCount={imgCount} />
+      <PhotoPagination
+          displayCount={displayCount}
+          imgCount={imgCount}
+          selectedPage={selectedPage}
+          setSelectedPage={setSelectedPage}
+        />
     </Fragment>
   );
 };

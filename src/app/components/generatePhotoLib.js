@@ -1,19 +1,52 @@
 "use client";
 import { CldImage } from "next-cloudinary";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import PhotoPagination from "./pagination";
 
 export const PhotoLibrary = (props) => {
   const { data, imgCount } = props;
   const [displayCount, setDisplayCount] = useState(15);
   const [selectedPage, setSelectedPage] = useState(Number);
+  const [imgBlocks, setImgBlocks] = useState();
 
   const count = [15, 30, 45];
+  const numOfPages = [Math.ceil(imgCount / displayCount)];
 
   const selectHandler = (e) => {
     e.preventDefault();
     setDisplayCount(e.target.value);
   };
+
+  useEffect(() => {
+
+    let block = [];
+    let innerBlock = [];
+
+    data.forEach((obj, i) => {
+      if (i < imgCount) {
+        if (innerBlock.length < displayCount) {
+          innerBlock.push(obj);
+          if (i === imgCount - 1) {
+            block.push(innerBlock);
+          }
+        } else {
+          block.push(innerBlock);
+          innerBlock = [];
+          innerBlock.push(obj);
+        }
+      }
+    });
+    console.log(block)
+    setImgBlocks(block)
+    
+  }, [data, displayCount]);
+
+  useEffect(() => {
+    if (window.localStorage.getItem("SelectedPage") === undefined) {
+      window.localStorage.setItem("SelectedPage", "1");
+    }
+    setSelectedPage(parseInt(window.localStorage.getItem("SelectedPage")));
+  }, []);
 
   return (
     <Fragment>
@@ -24,6 +57,7 @@ export const PhotoLibrary = (props) => {
           imgCount={imgCount}
           selectedPage={selectedPage}
           setSelectedPage={setSelectedPage}
+          numOfPages={numOfPages}
         />
         <div className="flex right-0 flex-col w-15 mr-5">
           <label
@@ -35,7 +69,7 @@ export const PhotoLibrary = (props) => {
           <select
             id="count"
             name="count"
-            className="block w-fit place-self-end rounded-md border-0 py-1.5 pl-3 pr-5 hover:shadow-md text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            className="block w-fit place-self-end rounded-md border-0 py-1.5 pl-3 pr-5 hover:shadow-md text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 sm:text-sm sm:leading-6"
             defaultValue="15"
             onChange={(e) => selectHandler(e)}
           >
@@ -50,7 +84,7 @@ export const PhotoLibrary = (props) => {
         </div>
       </div>
       <div className="md:flex flex-wrap flex-row justify-evenly">
-        {data.map((photoData, index) => {
+        {imgBlocks[selectedPage -1].map((photoData, index) => {
           while (index < displayCount)
             return (
               <div key={index}>
@@ -68,11 +102,12 @@ export const PhotoLibrary = (props) => {
         })}
       </div>
       <PhotoPagination
-          displayCount={displayCount}
-          imgCount={imgCount}
-          selectedPage={selectedPage}
-          setSelectedPage={setSelectedPage}
-        />
+        displayCount={displayCount}
+        imgCount={imgCount}
+        selectedPage={selectedPage}
+        setSelectedPage={setSelectedPage}
+        numOfPages={numOfPages}
+      />
     </Fragment>
   );
 };

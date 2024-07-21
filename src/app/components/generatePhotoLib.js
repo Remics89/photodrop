@@ -6,7 +6,7 @@ import PhotoPagination from "./pagination";
 export const PhotoLibrary = (props) => {
   const { data, imgCount } = props;
   const [displayCount, setDisplayCount] = useState(15);
-  const [selectedPage, setSelectedPage] = useState(Number);
+  const [selectedPage, setSelectedPage] = useState(1);
   const [imgBlocks, setImgBlocks] = useState();
 
   const count = [15, 30, 45];
@@ -18,7 +18,6 @@ export const PhotoLibrary = (props) => {
   };
 
   useEffect(() => {
-
     let block = [];
     let innerBlock = [];
 
@@ -36,10 +35,8 @@ export const PhotoLibrary = (props) => {
         }
       }
     });
-    console.log(block)
-    setImgBlocks(block)
-    
-  }, [data, displayCount]);
+    setImgBlocks(block);
+  }, [data, displayCount, imgCount]);
 
   useEffect(() => {
     if (window.localStorage.getItem("SelectedPage") === undefined) {
@@ -83,13 +80,13 @@ export const PhotoLibrary = (props) => {
           </select>
         </div>
       </div>
-      <div className="md:flex flex-wrap flex-row justify-evenly">
-        {imgBlocks[selectedPage -1].map((photoData, index) => {
+      <div className="md:flex flex-wrap flex-row justify-evenly px-5">
+        {!imgBlocks ? null : imgBlocks[selectedPage -1].map((photoData, index) => {
           while (index < displayCount)
             return (
               <div key={index}>
                 <CldImage
-                  className="m-2 shadow-sm shadow-black hover:shadow-lg hover:shadow-black rounded-lg mobile:my-4 mobile:mx-0 mobile:w-100%"
+                  className="m-2 shadow-sm shadow-black hover:shadow-lg hover:shadow-black mobile:my-2 mobile:mx-0 mobile:w-100% "
                   width={600}
                   height={450}
                   src={photoData.path}

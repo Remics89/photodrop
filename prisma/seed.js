@@ -1,4 +1,5 @@
-const {PrismaClient} = require('@prisma/client')
+const {PrismaClient} = require('@prisma/client');
+const { user } = require('pg/lib/defaults');
 const prisma = new PrismaClient();
 
 async function main() {
@@ -66,6 +67,31 @@ async function main() {
     { owner: 1, path: "docs/models-64" },
     { owner: 1, path: "docs/models-65" },
   ];
+
+  const users = [
+    {
+      email: "testuser@123.com",
+      firstName: "Test",
+      lastName: "User",
+      userName: "testuser",
+      role: 1
+    },
+    {
+      email: "testuser002@123.com",
+      firstName: "test002",
+      lastName: "user002",
+      userName: "testuser002",
+      role: 0
+    }
+  ]
+
+  await Promise.all(
+    users.map(async (user) => {
+      await prisma.user.create({
+        data: user
+      })
+    })
+  )
 
   await Promise.all(
     seedPhotos.map(async (photo) => {

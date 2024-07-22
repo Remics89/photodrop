@@ -1,7 +1,8 @@
-import prisma from "./prisma";
+const {PrismaClient} = require('@prisma/client')
+const prisma = new PrismaClient();
 
 async function main() {
-  let seedPhotos = [
+  const seedPhotos = [
     { owner: 1, path: "docs/models" },
     { owner: 1, path: "docs/models-2" },
     { owner: 1, path: "docs/models-3" },

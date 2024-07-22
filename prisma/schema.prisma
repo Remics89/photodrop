@@ -25,11 +25,4 @@ model user {
   lastName  String   @db.VarChar(255)
   userName  String   @unique @db.VarChar(20)
   photos    photos[]
-  role      role[]
-}
-
-model role {
-  id      Int  @id @default(autoincrement())
-  adminId Int
-  user    user @relation(fields: [adminId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

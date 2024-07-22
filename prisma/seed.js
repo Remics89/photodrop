@@ -73,8 +73,7 @@ async function main() {
       email: "testuser@123.com",
       firstName: "Test",
       lastName: "User",
-      userName: "testuser",
-      role: 1
+      userName: "testuser"
     },
     {
       email: "testuser002@123.com",

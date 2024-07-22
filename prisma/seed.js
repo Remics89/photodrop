@@ -80,8 +80,7 @@ async function main() {
       email: "testuser002@123.com",
       firstName: "test002",
       lastName: "user002",
-      userName: "testuser002",
-      role: 0
+      userName: "testuser002"
     }
   ]
 

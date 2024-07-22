@@ -4,7 +4,7 @@ import { PhotoLibrary } from "../components/generatePhotoLib";
 
 export default async function Page() {
   const data = await prisma.photos.findMany({
-    where: { owner: 1 },
+    where: { owner: "testuser" },
   });
 
   const imgCount = data.length;

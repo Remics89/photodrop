@@ -11,11 +11,11 @@ model photos {
   id          Int      @id @default(autoincrement())
   title       String?  @db.VarChar(255)
   createdAt   DateTime @default(now()) @db.Timestamp(6)
-  owner       Int
+  owner       String
   description String?
   path        String   @unique @db.VarChar(255)
   likes       Int?
-  user        user     @relation(fields: [owner], references: [id], onDelete: Cascade)
+  user        user     @relation(fields: [owner], references: [userName], onDelete: Cascade)
 }
 
 model user {

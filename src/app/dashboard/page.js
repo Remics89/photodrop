@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import prisma from "../../../prisma/prisma";
 import { PhotoLibrary } from "../components/PhotoLib";
 import { NoImages } from "../components/noImages";
@@ -9,9 +10,13 @@ export default async function Page() {
 
   return (
     <div>
-      {images.length > 0 ? <PhotoLibrary
-        data={images}
-      /> : <NoImages/> }
+      {images.length > 0 ? (
+        <Suspense>
+          <PhotoLibrary data={images} />
+        </Suspense>
+      ) : (
+        <NoImages />
+      )}
     </div>
   );
 }

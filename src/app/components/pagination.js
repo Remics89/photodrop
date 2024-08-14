@@ -2,7 +2,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
 export default function PhotoPagination(props) {
-  const { displayCount, imgCount, selectedPage, setSelectedPage, numOfPages } =
+  const { displayCount, totalImageCount, selectedPage, setSelectedPage, numOfPages } =
     props;
 
   const activePageColor = "bg-emerald-700";
@@ -71,7 +71,7 @@ export default function PhotoPagination(props) {
           <p className="text-sm text-gray-700">
             Showing <span className="font-medium">1</span> to{" "}
             <span className="font-medium">{displayCount}</span> of{" "}
-            <span className="font-medium">{imgCount}</span> results
+            <span className="font-medium">{totalImageCount}</span> results
           </p>
         </div>
         <div>

@@ -1,11 +1,10 @@
 "use client";
-import { CldImage } from "next-cloudinary";
 import { Fragment, useState } from "react";
 import PhotoPagination from "./pagination";
 import { useSearchParams } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
-import RenderImages from "./imageRender"
+import RenderImages from "./imageRender";
 
 export const PhotoLibrary = (props) => {
   const { data, totalImageCount } = props;
@@ -16,7 +15,7 @@ export const PhotoLibrary = (props) => {
   const router = useRouter();
 
   const imageCountOptions = [15, 30, 45];
-  const numOfPages = [Math.ceil(totalImageCount / displayCount)];
+  const numOfPages = [Math.ceil(totalImageCount / (displayCount || 15))];
 
   const selectHandler = (e) => {
     e.preventDefault();
@@ -60,7 +59,7 @@ export const PhotoLibrary = (props) => {
         </div>
       </div>
 
-      <RenderImages images={data}/>
+      <RenderImages images={data} />
 
       <PhotoPagination
         displayCount={displayCount}

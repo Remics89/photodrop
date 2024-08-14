@@ -1,5 +1,4 @@
 const {PrismaClient} = require('@prisma/client');
-const { user } = require('pg/lib/defaults');
 const prisma = new PrismaClient();
 
 async function main() {

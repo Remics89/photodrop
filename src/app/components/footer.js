@@ -81,6 +81,8 @@ export default function Footer() {
     setMounted(true);
   }, []);
 
+  const date = new Date().getFullYear();
+
   return (
     mounted && (
       <footer className="bg-white inset-x-0 bottom-0 ">
@@ -113,7 +115,7 @@ export default function Footer() {
             ))}
           </div>
           <p className="mt-10 text-center text-xs leading-5 text-gray-500">
-            &copy; 2024 Matthew Szekeres. All rights reserved.
+            &copy; {date} Matthew Szekeres. All rights reserved.
           </p>
         </div>
       </footer>

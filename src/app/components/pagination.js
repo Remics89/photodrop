@@ -1,9 +1,13 @@
 "use client";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function PhotoPagination(props) {
-  const { displayCount, totalImageCount, selectedPage, setSelectedPage, numOfPages } =
+  const { totalImageCount, numberOfPages, showPage, showCount } =
     props;
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
 
   const activePageColor = "bg-emerald-700";
   const pageNumberClassNames = [
@@ -19,19 +23,15 @@ export default function PhotoPagination(props) {
 
   const pageHandler = (e, num) => {
     e.preventDefault();
-    if (num === "-") {
-      setSelectedPage(selectedPage - 1);
-    } else if (num === "+") {
-      setSelectedPage(selectedPage + 1);
-    } else {
-      setSelectedPage(num);
-    }
+    const selectedPage = new URLSearchParams(searchParams);
+    selectedPage.set("page", e.target.value);
+    router.push(pathname)
   };
 
   return (
     <div className="flex border-t items-center justify-between border-gray-200 bg-white px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
-        {selectedPage == 1 ? (
+        {showPage == 1 ? (
           <button
             className="relative inline-flex items-center rounded-md border border-gray-300 bg-gray-600 px-4 py-2 text-sm font-medium text-white opacity-20"
             disabled
@@ -48,7 +48,7 @@ export default function PhotoPagination(props) {
             Previous
           </button>
         )}
-        {numOfPages[0] == selectedPage ? (
+        {numberOfPages[0] == showPage ? (
           <button
             className="relative inline-flex items-center rounded-md border border-gray-300 bg-gray-600 px-4 py-2 text-sm font-medium text-white opacity-20"
             disabled
@@ -70,7 +70,7 @@ export default function PhotoPagination(props) {
         <div>
           <p className="text-sm text-gray-700">
             Showing <span className="font-medium">1</span> to{" "}
-            <span className="font-medium">{displayCount}</span> of{" "}
+            <span className="font-medium">{showCount}</span> of{" "}
             <span className="font-medium">{totalImageCount}</span> results
           </p>
         </div>
@@ -93,7 +93,7 @@ export default function PhotoPagination(props) {
               />
             </a>
             {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" */}
-            {numOfPages.map((num, index) => {
+            {numberOfPages.map((num, index) => {
               return (
                 <a
                   key={index}
@@ -102,7 +102,7 @@ export default function PhotoPagination(props) {
                     pageHandler(e, num);
                   }}
                 >
-                  1
+                  {num}
                 </a>
               );
             })}

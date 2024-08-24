@@ -1,9 +1,9 @@
 "use client";
 import { CldImage } from "next-cloudinary";
 
-export default function RenderImages (props) {
+export default function RenderImages(props) {
   const { images } = props;
-  
+
   return (
     <div className="md:flex flex-wrap flex-row justify-evenly px-5">
       {images.map((photoData, index) => {
@@ -14,7 +14,7 @@ export default function RenderImages (props) {
               width={600}
               height={450}
               src={photoData.path}
-              alt={photoData.title || "alt placeholder"} 
+              alt={photoData.title || "alt placeholder"}
               title={photoData.title}
             />
           </div>
@@ -22,4 +22,4 @@ export default function RenderImages (props) {
       })}
     </div>
   );
-};
+}

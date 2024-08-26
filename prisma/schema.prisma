@@ -7,7 +7,7 @@ datasource db {
   url      = env("POSTGRES_PRISMA_URL")
 }
 
-model photos {
+model Photos {
   id          Int      @id @default(autoincrement())
   title       String?  @db.VarChar(255)
   createdAt   DateTime @default(now()) @db.Timestamp(6)
@@ -15,14 +15,61 @@ model photos {
   description String?
   path        String   @unique @db.VarChar(255)
   likes       Int?
-  user        user     @relation(fields: [owner], references: [userName], onDelete: Cascade)
+  user        User     @relation(fields: [owner], references: [userName], onDelete: Cascade)
 }
 
-model user {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique @db.VarChar(255)
-  firstName String   @db.VarChar(255)
-  lastName  String   @db.VarChar(255)
-  userName  String   @unique @db.VarChar(20)
-  photos    photos[]
+model User {
+  id            Int       @id @default(autoincrement())
+  email         String    @unique @db.VarChar(255)
+  firstName     String    @db.VarChar(255)
+  lastName      String    @db.VarChar(255)
+  userName      String    @unique @db.VarChar(20)
+  emailVerified DateTime?
+  accounts      Account[]
+  sessions      Session[]
+  photos        Photos[]
+
+  @@unique([email, userName])
+}
+
+model Account {
+  id                Int     @id @default(autoincrement()) @map("_id")
+  userId            Int
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.VarChar(255)
+  access_token      String? @db.VarChar(255)
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           Int      @id @default(autoincrement()) @map("_id")
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  id         Int      @id @default(autoincrement()) @map("_id")
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
 }

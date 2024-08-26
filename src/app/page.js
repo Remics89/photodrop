@@ -1,11 +1,8 @@
-import { Dialog } from "@headlessui/react";
 import {
   ArrowPathIcon,
-  Bars3Icon,
   CloudArrowUpIcon,
   FingerPrintIcon,
   LockClosedIcon,
-  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/20/solid";
 
@@ -90,38 +87,13 @@ const faqs = [
   },
   // More questions...
 ];
-const footerNavigation = {
-  solutions: [
-    { name: "Hosting", href: "#" },
-    { name: "Data Services", href: "#" },
-    { name: "Uptime Monitoring", href: "#" },
-    { name: "Enterprise Services", href: "#" },
-  ],
-  support: [
-    { name: "Pricing", href: "#" },
-    { name: "Documentation", href: "#" },
-    { name: "Guides", href: "#" },
-    { name: "API Reference", href: "#" },
-  ],
-  company: [
-    { name: "About", href: "#" },
-    { name: "Blog", href: "#" },
-    { name: "Jobs", href: "#" },
-    { name: "Press", href: "#" },
-    { name: "Partners", href: "#" },
-  ],
-  legal: [
-    { name: "Claim", href: "#" },
-    { name: "Privacy", href: "#" },
-    { name: "Terms", href: "#" },
-  ],
-};
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function Home() {
   return (
     <div className="bg-white">
       <main className="">

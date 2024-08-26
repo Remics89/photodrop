@@ -1,8 +1,9 @@
 "use client";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
+// Nav options
 // **** Dashboard is temporary. Remove before production
 const navigation = [
   { name: "Dashboard", href: "/dashboard" },
@@ -10,6 +11,7 @@ const navigation = [
   { name: "Features", href: "#" },
 ];
 
+// nav options when user authorized
 const userNavigation = [
   {
     name: "Dashboard",

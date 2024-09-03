@@ -7,6 +7,9 @@ export default function RenderImages(props) {
   return (
     <div className="md:flex flex-wrap flex-row justify-evenly px-5">
       {images.map((photoData, index) => {
+        if (index === 0) {
+          photoData.priority = true;
+        }
         return (
           <div key={index}>
             <CldImage
@@ -16,6 +19,7 @@ export default function RenderImages(props) {
               src={photoData.path}
               alt={photoData.title || "alt placeholder"}
               title={photoData.title}
+              priority={photoData.priority}
             />
           </div>
         );
